@@ -1,6 +1,6 @@
 package com.pruebasura.financiera.controller;
 
-import com.pruebasura.financiera.application.serviceI.ClienteService;
+import com.pruebasura.financiera.application.service.InterfaceClienteService;
 import com.pruebasura.financiera.domain.model.entity.Cliente;
 import com.pruebasura.financiera.infrastructure.controller.ClienteController;
 
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 public class ClienteControllerTest {
 
     @Mock
-    private ClienteService clienteService;
+    private InterfaceClienteService clienteService;
 
     @InjectMocks
     private ClienteController clienteController;

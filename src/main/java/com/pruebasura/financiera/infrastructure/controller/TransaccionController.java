@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pruebasura.financiera.application.serviceI.TransaccionService;
+import com.pruebasura.financiera.application.service.InterfaceTransaccionService;
 import com.pruebasura.financiera.domain.model.entity.Transaccion;
 
 //Para los logs
@@ -24,7 +24,7 @@ public class TransaccionController {
     private static final Logger logger = LoggerFactory.getLogger(TransaccionController.class);
 
     @Autowired
-    private TransaccionService transaccionService;
+    private InterfaceTransaccionService transaccionService;
 
     @PostMapping
     public ResponseEntity<Transaccion> crearTransaccion(@RequestBody Transaccion transaccion) {

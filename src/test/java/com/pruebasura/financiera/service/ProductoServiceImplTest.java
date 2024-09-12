@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.pruebasura.financiera.application.serviceI.EstadoService;
+import com.pruebasura.financiera.application.service.InterfaceEstadoService;
 import com.pruebasura.financiera.domain.model.entity.Cliente;
 import com.pruebasura.financiera.domain.model.entity.Estado;
 import com.pruebasura.financiera.domain.model.entity.Producto;
@@ -40,7 +40,7 @@ public class ProductoServiceImplTest {
     private TipoProductoRepository tipoProductoRepository;
 
     @Mock
-    private EstadoService estadoService;
+    private InterfaceEstadoService estadoService;
 
     @InjectMocks
     private ProductoServiceImpl productoService;

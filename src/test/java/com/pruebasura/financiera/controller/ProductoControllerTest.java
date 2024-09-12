@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.pruebasura.financiera.application.serviceI.ProductoService;
+import com.pruebasura.financiera.application.service.InterfaceProductoService;
 import com.pruebasura.financiera.domain.model.entity.Producto;
 import com.pruebasura.financiera.domain.model.entity.TipoProducto;
 import com.pruebasura.financiera.infrastructure.controller.ProductoController;
@@ -23,7 +23,7 @@ import com.pruebasura.financiera.infrastructure.controller.ProductoController;
 public class ProductoControllerTest {
 
     @Mock
-    private ProductoService productoService;
+    private InterfaceProductoService productoService;
 
     @InjectMocks
     private ProductoController productoController;

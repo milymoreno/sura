@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pruebasura.financiera.application.serviceI.ClienteService;
+import com.pruebasura.financiera.application.service.InterfaceClienteService;
 import com.pruebasura.financiera.domain.model.entity.Cliente;
 
 //Para los logs
@@ -27,7 +27,7 @@ public class ClienteController {
     private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
     @Autowired
-    private ClienteService clienteService;
+    private InterfaceClienteService clienteService;
 
     @PostMapping
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {

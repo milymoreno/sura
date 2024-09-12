@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pruebasura.financiera.application.serviceI.ProductoService;
+import com.pruebasura.financiera.application.service.InterfaceProductoService;
 import com.pruebasura.financiera.domain.model.entity.Producto;
 
 //Para los logs
@@ -28,7 +28,7 @@ public class ProductoController {
     private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
 
     @Autowired
-    private ProductoService productoService;
+    private InterfaceProductoService productoService;
 
     @PostMapping
     public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {

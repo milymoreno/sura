@@ -1,10 +1,10 @@
-package com.pruebasura.financiera.application.serviceI;
+package com.pruebasura.financiera.application.service;
 
 import java.util.List;
 
 import com.pruebasura.financiera.domain.model.entity.Producto;
 
-public interface ProductoService {
+public interface InterfaceProductoService {
 
     Producto crearProducto(Producto producto);
 

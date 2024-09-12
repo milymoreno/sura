@@ -6,10 +6,11 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import com.pruebasura.financiera.application.serviceI.EstadoService;
-import com.pruebasura.financiera.application.serviceI.ProductoService;
+import com.pruebasura.financiera.application.service.InterfaceEstadoService;
+import com.pruebasura.financiera.application.service.InterfaceProductoService;
 import com.pruebasura.financiera.domain.model.entity.Cliente;
 import com.pruebasura.financiera.domain.model.entity.Estado;
 import com.pruebasura.financiera.domain.model.entity.Producto;
@@ -20,7 +21,7 @@ import com.pruebasura.financiera.infrastructure.repository.ProductoRepository;
 import com.pruebasura.financiera.infrastructure.repository.TipoProductoRepository;
 
 @Service
-public class ProductoServiceImpl implements ProductoService {
+public class ProductoServiceImpl implements InterfaceProductoService {
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -35,7 +36,7 @@ public class ProductoServiceImpl implements ProductoService {
     private TipoProductoRepository tipoProductoRepository;
 
     @Autowired
-    private EstadoService estadoService;
+    private InterfaceEstadoService estadoService;
 
     @Override
     public Producto crearProducto(Producto producto) {
@@ -105,10 +106,19 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    @Transactional
     public void eliminarProducto(Long id) {
-        Producto producto = obtenerProductoPorId(id);
+        Producto producto = obtenerProductoPorId(id);        
+        
+        // Validar que el saldo sea 0 antes de eliminar
+        if (producto.getSaldo().compareTo(BigDecimal.ZERO) != 0) {
+            throw new IllegalArgumentException("No se puede eliminar el producto porque tiene un saldo mayor a 0.");
+        }
+
+        // Proceder a eliminar si no hay clientes vinculados y el saldo es 0
         productoRepository.delete(producto);
     }
+
 
     @Override
     public Producto obtenerProductoPorId(Long id) {

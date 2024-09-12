@@ -1,6 +1,6 @@
 package com.pruebasura.financiera.domain.service;
 
-import com.pruebasura.financiera.application.serviceI.TransaccionService;
+import com.pruebasura.financiera.application.service.InterfaceTransaccionService;
 import com.pruebasura.financiera.domain.model.entity.Producto;
 import com.pruebasura.financiera.domain.model.entity.TipoTransaccion;
 import com.pruebasura.financiera.domain.model.entity.Transaccion;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.math.BigDecimal;
 
 @Service
-public class TransaccionServiceImpl implements TransaccionService {
+public class TransaccionServiceImpl implements InterfaceTransaccionService {
 
     @Autowired
     private TransaccionRepository transaccionRepository;

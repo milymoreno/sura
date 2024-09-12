@@ -1,49 +1,62 @@
 package com.pruebasura.financiera.domain.service;
 
-import com.pruebasura.financiera.application.serviceI.ClienteService;
+import com.pruebasura.financiera.application.service.InterfaceClienteService;
 import com.pruebasura.financiera.domain.model.entity.Cliente;
 import com.pruebasura.financiera.infrastructure.repository.ClienteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClienteServiceImpl implements ClienteService {
+public class ClienteServiceImpl implements InterfaceClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
-    @Override
-    public Cliente crearCliente(Cliente cliente) {
-        // Implementación del método crearCliente
-        // Validación: Verificar si ya existe un cliente con el mismo tipo y número de identificación
+    public void validarCliente(Cliente cliente) {
+        if (!cliente.esMayorDeEdad()) {
+            throw new IllegalArgumentException("El cliente debe ser mayor de edad.");
+        }
         Optional<Cliente> clienteExistente = clienteRepository.findByTipoIdentificacionAndNumeroIdentificacion(cliente.getTipoIdentificacion(), cliente.getNumeroIdentificacion());
         if (clienteExistente.isPresent()) {
             throw new IllegalArgumentException("Ya existe un cliente con el mismo tipo y número de identificación.");
         }
+       
+    }
+
+    @Override
+    public Cliente crearCliente(Cliente cliente) {
+        validarCliente(cliente);
         return clienteRepository.save(cliente);
     }
 
     @Override
     public Cliente actualizarCliente(Long id, Cliente clienteDetalles) {
-        // Implementación del método actualizarCliente
+        
         Cliente cliente = obtenerClientePorId(id);
         cliente.setNombres(clienteDetalles.getNombres());
         cliente.setApellidos(clienteDetalles.getApellidos());
         cliente.setEmail(clienteDetalles.getEmail());
-        cliente.setFechaModificacion(clienteDetalles.getFechaModificacion());
         return clienteRepository.save(cliente);
     }
 
+    
+
     @Override
-    public void eliminarCliente(Long id) {
-        // Implementación del método eliminarCliente
+    @Transactional
+    public void eliminarCliente(Long id) {        
         Cliente cliente = obtenerClientePorId(id);
+        // Verificar si el cliente tiene productos vinculados
+        if (!cliente.getProductos().isEmpty()) {
+            throw new IllegalStateException("No se puede eliminar el cliente porque tiene productos vinculados.");
+        }
         clienteRepository.delete(cliente);
     }
+
 
     @Override
     public Cliente obtenerClientePorId(Long id) {

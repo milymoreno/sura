@@ -17,14 +17,14 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.pruebasura.financiera.application.serviceI.TransaccionService;
+import com.pruebasura.financiera.application.service.InterfaceTransaccionService;
 import com.pruebasura.financiera.domain.model.entity.Transaccion;
 import com.pruebasura.financiera.infrastructure.controller.TransaccionController;
 
 public class TransaccionControllerTest {
 
     @Mock
-    private TransaccionService transaccionService;
+    private InterfaceTransaccionService transaccionService;
 
     @InjectMocks
     private TransaccionController transaccionController;
